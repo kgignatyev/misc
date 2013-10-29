@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>kgi.mcytravel</groupId>
+    <artifactId>repl-in-war</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>mcytravel-parent-pom</name>
+
+
+    <prerequisites>
+        <maven>3.0.5</maven>
+    </prerequisites>
+
+    <properties>
+        <activation.version>1.1.1</activation.version>
+        <akka.version>2.2.1</akka.version>
+        <aspectj.version>1.7.3</aspectj.version>
+        <aws-sdk.version>1.6.2</aws-sdk.version>
+        <commons-dbcp.version>1.4</commons-dbcp.version>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <commons-codec.version>1.8</commons-codec.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <dom4j.version>1.6.1</dom4j.version>
+        <!-- have to use httpclient 4.2 till jets3 catches up with changes-->
+        <httpclient.version>4.3.1</httpclient.version>
+        <itext.version>4.2.1</itext.version>
+        <jackson-core.version>2.2.3</jackson-core.version>
+        <jackson-module-scala.version>2.2.3</jackson-module-scala.version>
+        <jackson-datatype-joda-version>2.2.3</jackson-datatype-joda-version>
+        <javamail.version>1.5.0-b01</javamail.version>
+        <javamelody.version>1.47.0</javamelody.version>
+        <jaxen.version>1.1.6</jaxen.version>
+        <jetty.version>9.1.0.RC0</jetty.version>
+        <!--<jetty.version>9.0.4.v20130625</jetty.version>-->
+        <!--<jetty.version>8.1.8.v20121106</jetty.version>-->
+        <joda-convert.version>1.5</joda-convert.version>
+        <joda-time.version>2.3</joda-time.version>
+        <jtidy.version>r938</jtidy.version>
+        <junit-version>4.11</junit-version>
+        <log4j.version>1.2.17</log4j.version>
+        <loremipsum.version>1.0</loremipsum.version>
+        <mybatis.version>3.2.3</mybatis.version>
+        <mybatis-spring.version>1.2.1</mybatis-spring.version>
+        <mybatis-scala.version>1.0.2-SNAPSHOT</mybatis-scala.version>
+        <mybatis-scala-doclet.version>1.0-2.10-SNAPSHOT</mybatis-scala-doclet.version>
+        <mysql-connector.version>5.1.26</mysql-connector.version>
+        <opencsv.version>2.3</opencsv.version>
+        <plugin.compiler>2.3.2</plugin.compiler>
+        <plugin.javadoc>2.8.1</plugin.javadoc>
+        <plugin.scalatest>1.0-M4-SNAP1</plugin.scalatest>
+        <plugin.source>2.1.2</plugin.source>
+        <plugin.surefire>2.16</plugin.surefire>
+        <plugin.tomcat7>2.1</plugin.tomcat7>
+        <slf4j-version>1.7.5</slf4j-version>
+        <scala.binary>2.10</scala.binary>
+        <scala.version>2.10.3</scala.version>
+        <scalatra.version>2.2.2-SNAPSHOT</scalatra.version>
+        <scalate.version>2.2.0</scalate.version>
+        <scala-maven-plugin.version>3.1.5</scala-maven-plugin.version>
+        <selenium-htmlunit.version>2.26.0</selenium-htmlunit.version>
+        <specs2.version>2.2.3</specs2.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
+        <thumbnailator.version>0.4.6</thumbnailator.version>
+        <velocity.version>1.7</velocity.version>
+        <wicket.version>6.11.0</wicket.version>
+        <wicketstuff-stateless.version>6.11.0</wicketstuff-stateless.version>
+        <failIfNoTests>false</failIfNoTests>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-reflect</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+
+        <!--  JETTY DEPENDENCIES FOR TESTING  -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-plus</artifactId>
+            <version>${jetty.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.10</artifactId>
+            <version>1.9.2</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+
+
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                    <recompileMode>incremental</recompileMode>
+                    <useZincServer>true</useZincServer>
+                    <jvmArgs>
+                        <jvmArg>-Xms124m</jvmArg>
+                        <jvmArg>-Xmx2048m</jvmArg>
+                    </jvmArgs>
+                    <args>
+                        <arg>-feature</arg>
+                        <arg>-deprecation</arg>
+                        <!--<arg>-Ystatistics</arg>-->
+                        <!--<arg> -Ytyper-debug</arg>-->
+                        <arg>-language:postfixOps</arg>
+                    </args>
+                    <!--<args>-->
+                    <!--<arg>-target:jvm-1.5</arg>-->
+
+                    <!--&lt;!&ndash; to support mix java/scala only &ndash;&gt;-->
+                    <!--&lt;!&ndash;<arg>-make:transitivenocp</arg>&ndash;&gt;-->
+                    <!--<arg>-dependencyfile</arg>-->
+                    <!--<arg>${project.build.directory}/.scala_dependencies</arg>-->
+                    <!--</args>-->
+                </configuration>
+            </plugin>
+
+            <!-- disable surefire -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${plugin.surefire}</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <!-- Disable the default-test by putting it in phase none -->
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+                <version>${plugin.scalatest}</version>
+                <configuration>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <stdout>W</stdout>
+                    <!-- Skip coloring output -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>scala-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>${plugin.tomcat7}</version>
+                <configuration>
+                    <path>/</path>
+                    <port>9090</port>
+                    <systemProperties>
+                        <org.apache.commons.logging.Log>org.apache.commons.logging.impl.SimpleLog
+                        </org.apache.commons.logging.Log>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+    <!-- -->
+    <repositories>
+        <!--<repository>-->
+        <!--<id>kgionline.com</id>-->
+        <!--<name>kgionline repo</name>-->
+        <!--<url>http://www.kgionline.com/repo/</url>-->
+        <!--</repository>-->
+        <repository>
+            <id>scala-tools.org</id>
+            <name>Scala-Tools Maven2 Repository</name>
+            <url>http://repo.typesafe.com/typesafe/scala-tools-releases-cache</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>typesafe</id>
+            <name>Typesafe Repository</name>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>sonatype Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+</project>
