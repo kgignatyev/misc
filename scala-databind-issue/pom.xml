@@ -26,9 +26,9 @@
         <!-- have to use httpclient 4.2 till jets3 catches up with changes-->
         <httpclient.version>4.2</httpclient.version>
         <itext.version>4.2.0</itext.version>
-        <jackson-core.version>2.3.0-SNAPSHOT</jackson-core.version>
-        <jackson-module-scala.version>2.3.0-SNAPSHOT</jackson-module-scala.version>
-        <jackson-datatype-joda-version>2.2.2</jackson-datatype-joda-version>
+        <jackson-core.version>2.5.3</jackson-core.version>
+        <jackson-module-scala.version>2.5.2</jackson-module-scala.version>
+
         <javamail.version>1.5.0-b01</javamail.version>
         <javamelody.version>1.45.0</javamelody.version>
         <jaxen.version>1.1.6</jaxen.version>
@@ -41,20 +41,18 @@
         <junit-version>4.11</junit-version>
         <log4j.version>1.2.17</log4j.version>
         <loremipsum.version>1.0</loremipsum.version>
-        <mybatis.version>3.2.2</mybatis.version>
-        <mybatis-spring.version>1.2.0</mybatis-spring.version>
-        <mybatis-scala.version>1.0.2-SNAPSHOT</mybatis-scala.version>
-        <mybatis-scala-doclet.version>1.0-2.10-SNAPSHOT</mybatis-scala-doclet.version>
-        <mysql-connector.version>5.1.25</mysql-connector.version>
+
         <opencsv.version>2.3</opencsv.version>
         <plugin.compiler>2.3.2</plugin.compiler>
         <plugin.javadoc>2.8.1</plugin.javadoc>
+        <plugin.scalatest>1.0</plugin.scalatest>
         <plugin.source>2.1.2</plugin.source>
         <plugin.surefire>2.12</plugin.surefire>
         <slf4j-version>1.7.5</slf4j-version>
-        <scala.binary>2.10</scala.binary>
-        <scala.version>2.10.2</scala.version>
-        <scala-maven-plugin.version>3.1.5</scala-maven-plugin.version>
+        <scala.binary>2.11</scala.binary>
+        <scala.version>2.11.6</scala.version>
+        <scala-maven-plugin.version>3.2.0</scala-maven-plugin.version>
+        <sclatest.version>2.2.4</sclatest.version>
         <selenium-htmlunit.version>2.26.0</selenium-htmlunit.version>
         <specs2.version>2.0</specs2.version>
         <spring.version>3.2.3.RELEASE</spring.version>
@@ -63,6 +61,7 @@
         <wicket.version>6.8.0</wicket.version>
         <wicketstuff-stateless.version>6.6.0-SNAPSHOT</wicketstuff-stateless.version>
         <failIfNoTests>false</failIfNoTests>
+
     </properties>
 
     <dependencies>
@@ -93,14 +92,6 @@
 
 
         <dependency>
-            <groupId>org.specs2</groupId>
-            <artifactId>specs2_${scala.binary}.1</artifactId>
-            <version>${specs2.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>${commons-dbcp.version}</version>
@@ -124,13 +115,6 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector.version}</version>
         </dependency>
 
 
@@ -186,7 +170,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
-            <version>${jackson-datatype-joda-version}</version>
+            <version>${jackson-core.version}</version>
         </dependency>
 
 
@@ -272,6 +256,13 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.binary}</artifactId>
+            <version>${sclatest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
     <build>
@@ -312,27 +303,56 @@
                         <jvmArg>-Xms124m</jvmArg>
                         <jvmArg>-Xmx2048m</jvmArg>
                     </jvmArgs>
-
+                    <args>
+                        <arg>-feature</arg>
+                        <arg>-deprecation</arg>
+                        <!--<arg>-Ystatistics</arg>-->
+                        <!--<arg> -Ytyper-debug</arg>-->
+                        <arg>-language:postfixOps</arg>
+                    </args>
                     <!--<args>-->
                     <!--<arg>-target:jvm-1.5</arg>-->
 
-                    <!--&lt;!&ndash; to support mix java/scala only &ndash;&gt;-->
-                    <!--&lt;!&ndash;<arg>-make:transitivenocp</arg>&ndash;&gt;-->
+                    <!-- to support mix java/scala only -->
+                    <!--<arg>-make:transitivenocp</arg>-->
                     <!--<arg>-dependencyfile</arg>-->
                     <!--<arg>${project.build.directory}/.scala_dependencies</arg>-->
                     <!--</args>-->
                 </configuration>
             </plugin>
 
+            <!-- disable surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
+                <version>${plugin.surefire}</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <!-- Disable the default-test by putting it in phase none -->
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+                <version>${plugin.scalatest}</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Spec.class</include>
-                    </includes>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <stdout>W</stdout>
+
+                    <junitxml>.</junitxml>
+                    <filereports>WDF TestSuite.txt</filereports>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>scala-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
 
